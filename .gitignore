@@ -1,3 +1,5 @@
 #NOT VERSIONNED FILES
 /env
 chinook.db
+.vscode
+__pycache__
