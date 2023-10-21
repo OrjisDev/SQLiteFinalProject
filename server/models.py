@@ -29,4 +29,4 @@ class Track(Base):
     composer = Column(String)
     milliseconds = Column(Integer)
     bytes = Column(Integer)
-    uniPrice = Column(Numeric)
+    unitPrice = Column(Numeric)
