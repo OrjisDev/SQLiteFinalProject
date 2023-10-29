@@ -10,19 +10,7 @@ app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
 
-
-# Import des modèles de base de données
-class ArtistBase(BaseModel):
-    artistId: int
-    name: str
-
-
-class AlbumBase(BaseModel):
-    albumId: int
-    title: str
-    artistId: int
-
-
+#Permet de récupérer une instance de la base de donnée
 def get_db():
     db = SessionLocal()
     try:
@@ -31,11 +19,14 @@ def get_db():
         db.close()
 
 
-# Requète get pour
+# Requète get pour artists
 @app.get("/artists/{name}", status_code=status.HTTP_200_OK)
+#Instanciation de la fonction asyncrone read_artists qui prend une entrée pour faire la requête
 async def read_artists(name: str, db: Session = Depends(get_db)):
-    query = f"%{name}%"
+    query = f"%{name}%"*
+    #Création de la requête : correspond à SELECT Artists where name = query 
     artist = db.query(models.Artist).where(models.Artist.name.like(query)).all()
+    #Si le serveur ne possède pas de données il retourne une erreur 404
     if artist is None:
         raise HTTPException(status_code=404, detail="Artist Name not in Database")
     return artist

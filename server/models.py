@@ -1,8 +1,9 @@
+#Import des bibliothèques
 from .database import Base
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float, Numeric
 from sqlalchemy.orm import relationship
 
-
+#Création des modèles de table
 class Artist(Base):
     __tablename__ = "artists"
 
